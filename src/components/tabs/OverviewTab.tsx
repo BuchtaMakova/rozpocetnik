@@ -28,34 +28,6 @@ export function OverviewTab({
   balance,
   plannedBalance,
 }: OverviewTabProps) {
-  const kpis = [
-    {
-      label: "Příjem",
-      planned: totalPlannedIncome,
-      actual: totalActualIncome,
-      diff: incomeDiff,
-      icon: "💰",
-      // For income, positive diff is good (earned more than planned)
-      diffPositiveIsGood: true,
-    },
-    {
-      label: "Fixní náklady",
-      planned: totalFixedPlanned,
-      actual: totalFixed,
-      diff: totalFixed - totalFixedPlanned,
-      icon: "🏠",
-      diffPositiveIsGood: false,
-    },
-    {
-      label: "Výdaje",
-      planned: totalExpensesPlanned,
-      actual: totalExpenses,
-      diff: totalExpenses - totalExpensesPlanned,
-      icon: "🛍️",
-      diffPositiveIsGood: false,
-    },
-  ];
-
   const summaryRows = [
     {
       label: "Převod z min. měsíce",
@@ -82,80 +54,6 @@ export function OverviewTab({
 
   return (
     <div className="space-y-6">
-      {/* KPI cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {kpis.map((kpi, i) => {
-          const diffColor =
-            kpi.diff === 0
-              ? "var(--color-text-faint)"
-              : kpi.diff > 0 === kpi.diffPositiveIsGood
-              ? "var(--color-success)"
-              : "var(--color-danger)";
-
-          return (
-            <div
-              key={i}
-              className="rounded-2xl shadow-sm p-4 flex flex-col gap-1"
-              style={{
-                background: "var(--color-surface)",
-                border: "1px solid var(--color-border)",
-              }}
-            >
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xl">{kpi.icon}</span>
-                <span
-                  className="text-[10px] font-bold uppercase tracking-widest"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
-                  {kpi.label}
-                </span>
-              </div>
-              {/* Planned row */}
-              <div className="flex items-center justify-between">
-                <span
-                  className="text-[10px] uppercase tracking-wider"
-                  style={{ color: "var(--color-text-faint)" }}
-                >
-                  Plán
-                </span>
-                <span
-                  className="text-xs font-semibold"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
-                  {czk(kpi.planned)}
-                </span>
-              </div>
-              {/* Actual row */}
-              <div className="flex items-center justify-between">
-                <span
-                  className="text-[10px] uppercase tracking-wider"
-                  style={{ color: "var(--color-text-faint)" }}
-                >
-                  Skutečné
-                </span>
-                <span
-                  className="text-base font-black"
-                  style={{ color: "var(--color-primary)" }}
-                >
-                  {czk(kpi.actual)}
-                </span>
-              </div>
-              {/* Diff */}
-              <div
-                className="text-xs font-semibold text-right mt-0.5 pt-1"
-                style={{
-                  color: diffColor,
-                  borderTop: "1px solid var(--color-border)",
-                }}
-              >
-                {kpi.diff > 0 ? "+" : ""}
-                {czk(kpi.diff)}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
       {/* Charts row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div
