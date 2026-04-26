@@ -20,7 +20,6 @@ export function OverviewTab({
   data,
   totalPlannedIncome,
   totalActualIncome,
-  incomeDiff,
   totalFixed,
   totalFixedPlanned,
   totalExpenses,
