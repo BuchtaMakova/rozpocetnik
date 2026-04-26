@@ -9,12 +9,6 @@ interface HeaderProps {
   data?: MonthData | null;
   onPrevMonth: () => void;
   onNextMonth: () => void;
-  totalIncome?: number;
-  totalSpent?: number;
-  totalSavings?: number;
-  balance?: number;
-  activeTab: TabId;
-  onTabChange: (tab: TabId) => void;
 }
 
 const TABS: { id: TabId; label: string }[] = [
@@ -31,8 +25,6 @@ export function Header({
   data,
   onPrevMonth,
   onNextMonth,
-  activeTab,
-  onTabChange,
 }: HeaderProps) {
   return (
     <header
@@ -108,19 +100,6 @@ export function Header({
           <ThemeSwitcher />
         </div>
       </div>
-
-      {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 flex gap-1 pb-2 overflow-x-auto">
-        {TABS.map((tab) => (
-          <TabButton
-            key={tab.id}
-            active={activeTab === tab.id}
-            onClick={() => onTabChange(tab.id)}
-          >
-            {tab.label}
-          </TabButton>
-        ))}
-      </div>
     </header>
   );
 }
@@ -147,42 +126,6 @@ function NavButton({
       onMouseLeave={(e) =>
         ((e.currentTarget as HTMLElement).style.background = "transparent")
       }
-    >
-      {children}
-    </button>
-  );
-}
-
-function TabButton({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="px-4 py-1.5 rounded-full text-xs font-bold transition whitespace-nowrap"
-      style={
-        active
-          ? {
-              background: "var(--color-tab-active-bg)",
-              color: "var(--color-tab-active-text)",
-            }
-          : { color: "var(--color-text-muted)" }
-      }
-      onMouseEnter={(e) => {
-        if (!active)
-          (e.currentTarget as HTMLElement).style.background =
-            "var(--color-primary-subtle)";
-      }}
-      onMouseLeave={(e) => {
-        if (!active)
-          (e.currentTarget as HTMLElement).style.background = "transparent";
-      }}
     >
       {children}
     </button>

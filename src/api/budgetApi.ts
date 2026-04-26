@@ -1,21 +1,28 @@
 import type { MonthData } from "../types";
 
-// ── Config ───────────────────────────────────────────────
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 const USE_API = !!API_BASE_URL;
 
 const pad = (n: number) => String(n).padStart(2, "0");
-
 const apiPath = (year: number, month: number) =>
   `${API_BASE_URL}/budget/${year}/${pad(month)}`;
-
 const storageKey = (year: number, month: number) =>
   `budget_${year}_${pad(month)}`;
 
-const emptyMonth = (year: number, month: number): MonthData => ({
+// Helper to calculate the actual closing balance of any month data
+export const calculateClosingBalance = (data: MonthData): number => {
+  const totalIncome = data.persons.reduce((s, p) => s + p.actualIncome, 0);
+  const totalOut =
+    data.fixedCosts.reduce((s, x) => s + x.actual, 0) +
+    data.expenses.reduce((s, x) => s + x.actual, 0) +
+    data.savings.reduce((s, x) => s + x.actual, 0);
+  return totalIncome + (data.carryOver || 0) - totalOut;
+};
+
+const emptyMonth = (year: number, month: number, carryOver = 0): MonthData => ({
   month,
   year,
-  carryOver: 0,
+  carryOver,
   persons: [{ name: "Já", plannedIncome: 0, actualIncome: 0 }],
   fixedCosts: [],
   expenses: [],
@@ -26,76 +33,55 @@ export async function fetchBudget(
   year: number,
   month: number,
 ): Promise<MonthData> {
-  // Try API first if configured
   if (USE_API) {
     try {
-      const url = apiPath(year, month);
-      console.log(`[budgetApi] fetching from API → ${url}`);
-
-      const res = await fetch(url);
-      console.log(`[budgetApi] API response: ${res.status} ${res.statusText}`);
-
+      const res = await fetch(apiPath(year, month));
       if (res.ok) {
         const json = await res.json();
-        if (json.success) {
-          console.log(`[budgetApi] loaded from API`);
-          return json.data;
-        }
+        if (json.success) return json.data;
       }
     } catch (e) {
-      console.warn(
-        `[budgetApi] API fetch failed, falling back to localStorage`,
-        e,
-      );
+      console.warn(`[budgetApi] API fail, fallback to local`, e);
     }
   }
 
-  // Fall back to localStorage
   const key = storageKey(year, month);
   const stored = localStorage.getItem(key);
 
   if (stored) {
+    return JSON.parse(stored);
+  }
+
+  // AUTO-CARRYOVER LOGIC: Look for previous month to seed new month
+  const prevDate = new Date(year, month - 1);
+  const prevKey = storageKey(prevDate.getFullYear(), prevDate.getMonth());
+  const prevStored = localStorage.getItem(prevKey);
+
+  let initialCarry = 0;
+  if (prevStored) {
     try {
-      const data = JSON.parse(stored);
-      console.log(`[budgetApi] loaded from localStorage: ${key}`);
-      return data;
+      initialCarry = calculateClosingBalance(JSON.parse(prevStored));
     } catch (e) {
-      console.error(`[budgetApi] Failed to parse localStorage data`, e);
+      console.error("Failed to calculate carryover", e);
     }
   }
 
-  // Return empty month as last resort
-  console.log(`[budgetApi] no data found, returning empty month`);
-  return emptyMonth(year, month);
+  return emptyMonth(year, month, initialCarry);
 }
 
 export async function saveBudget(data: MonthData): Promise<void> {
-  // Save to localStorage first (always)
   const key = storageKey(data.year, data.month);
   localStorage.setItem(key, JSON.stringify(data));
-  console.log(`[budgetApi] saved to localStorage: ${key}`);
 
-  // Try to sync to API if configured
   if (USE_API) {
     try {
-      const url = apiPath(data.year, data.month);
-      console.log(`[budgetApi] syncing to API → ${url}`);
-
-      const res = await fetch(url, {
+      await fetch(apiPath(data.year, data.month), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
-      if (res.ok) {
-        console.log(`[budgetApi] synced to API successfully`);
-      } else {
-        console.warn(
-          `[budgetApi] API sync failed: ${res.status} ${res.statusText}`,
-        );
-      }
     } catch (e) {
-      console.warn(`[budgetApi] Failed to sync to API`, e);
+      console.warn(`[budgetApi] API sync failed`, e);
     }
   }
 }

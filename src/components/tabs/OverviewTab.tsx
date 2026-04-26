@@ -223,14 +223,13 @@ export function OverviewTab({
         <div
           className="px-4 py-3"
           style={{
-            background:
-              "linear-gradient(to right, var(--color-surface-raised), var(--color-primary-subtle))",
+            background: "var(--color-text-base)",
             borderBottom: "1px solid var(--color-border)",
           }}
         >
           <h3
             className="font-bold tracking-wide uppercase text-xs"
-            style={{ color: "var(--color-primary)" }}
+            style={{ color: "var(--color-surface)" }}
           >
             Rozpočet a skutečnost
           </h3>

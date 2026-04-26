@@ -8,17 +8,17 @@
 /* ── Pink ───────────────────────────────────────────────── */
 :root,
 [data-theme="pink"] {
-  --color-bg-from: #fff1f2;
-  --color-bg-via: #fdf2f8;
-  --color-bg-to: #fce7f3;
+  --color-bg-from: #fffbfb;
+  --color-bg-via: #fff8fc;
+  --color-bg-to: #fff7fb;
 
   --color-primary: #be123c; /* rose-700 — deep, readable */
   --color-primary-light: #e11d48; /* rose-600 */
-  --color-primary-subtle: #ffe4e6; /* rose-100 */
+  --color-primary-subtle: #ffb9be; /* rose-100 */
 
   --color-accent: #9d174d; /* pink-800 */
   --color-accent-light: #fbcfe8; /* pink-200 — used for buttons, not text */
-  --color-accent-subtle: #fdf2f8; /* pink-50  */
+  --color-accent-subtle: #fdc6e4; /* pink-50  */
 
   --color-surface: #ffffff;
   --color-surface-raised: #fff5f7;
@@ -52,20 +52,20 @@
 
 /* ── Ocean ──────────────────────────────────────────────── */
 [data-theme="ocean"] {
-  --color-bg-from: #f0f9ff;
-  --color-bg-via: #e0f2fe;
-  --color-bg-to: #eff6ff;
+  --color-bg-from: #f8fcff;
+  --color-bg-via: #f1faff;
+  --color-bg-to: #f6faff;
 
   --color-primary: #075985; /* sky-800 */
   --color-primary-light: #0284c7; /* sky-600 */
-  --color-primary-subtle: #dbeafe;
+  --color-primary-subtle: #e2efff;
 
   --color-accent: #1e40af; /* blue-800 */
-  --color-accent-light: #bfdbfe; /* blue-200 */
-  --color-accent-subtle: #f0f9ff;
+  --color-accent-light: #dcecff; /* blue-200 */
+  --color-accent-subtle: #daf1ff;
 
   --color-surface: #ffffff;
-  --color-surface-raised: #f0f9ff;
+  --color-surface-raised: #fbfeff;
   --color-border: #e0f2fe;
   --color-border-strong: #bae6fd;
 

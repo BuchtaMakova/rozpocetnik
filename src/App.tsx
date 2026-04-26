@@ -5,9 +5,7 @@ import { OverviewTab } from "./components/tabs/OverviewTab";
 import { IncomeTab } from "./components/tabs/IncomeTab";
 import { ExpensesTab } from "./components/tabs/ExpensesTab";
 import { SavingsTab } from "./components/tabs/SavingsTab";
-import { SectionTable } from "./components/tables/SectionTable";
 import { useBudget } from "./hooks/useBudget";
-import type { TabId } from "./types";
 import "./styles/themes.css";
 import "./App.css";
 
@@ -15,7 +13,6 @@ function BudgetApp() {
   const now = new Date();
   const [month, setMonth] = useState(now.getMonth());
   const [year, setYear] = useState(now.getFullYear());
-  const [activeTab, setActiveTab] = useState<TabId>("overview");
 
   // Hook is now month/year aware — refetches on navigation
   const budget = useBudget(year, month);
@@ -47,12 +44,6 @@ function BudgetApp() {
         data={budget.data}
         onPrevMonth={handlePrevMonth}
         onNextMonth={handleNextMonth}
-        totalIncome={budget.totalActualIncome}
-        totalSpent={budget.totalSpent}
-        totalSavings={budget.totalSavings}
-        balance={budget.balance}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
       />
 
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-6">
@@ -94,50 +85,7 @@ function BudgetApp() {
         {/* Content */}
         {!budget.isLoading && !budget.error && budget.data && (
           <>
-            {activeTab === "overview" && (
-              <OverviewTab
-                data={budget.data}
-                totalPlannedIncome={budget.totalPlannedIncome}
-                totalActualIncome={budget.totalActualIncome}
-                incomeDiff={budget.incomeDiff}
-                totalFixed={budget.totalFixed}
-                totalFixedPlanned={budget.totalFixedPlanned}
-                totalExpenses={budget.totalExpenses}
-                totalExpensesPlanned={budget.totalExpensesPlanned}
-                totalSavings={budget.totalSavings}
-                totalSavingsPlanned={budget.totalSavingsPlanned}
-                balance={budget.balance}
-                plannedBalance={budget.plannedBalance}
-              />
-            )}
-
-            {activeTab === "income" && (
-              <IncomeTab
-                persons={budget.data.persons}
-                carryOver={budget.data.carryOver}
-                totalPlannedIncome={budget.totalPlannedIncome}
-                totalActualIncome={budget.totalActualIncome}
-                incomeDiff={budget.incomeDiff}
-                onAddPerson={budget.addPerson}
-                onUpdatePerson={budget.updatePerson}
-                onDeletePerson={budget.deletePerson}
-                onSetCarryOver={budget.setCarryOver}
-              />
-            )}
-
-            {activeTab === "fixed" && (
-              <SectionTable
-                title="Fixní náklady"
-                items={budget.data.fixedCosts}
-                onAdd={budget.addFixedCost}
-                onChangePlanned={budget.updateFixedPlanned}
-                onChangeActual={budget.updateFixedActual}
-                onChangeName={budget.updateFixedName}
-                onDelete={budget.deleteFixedCost}
-              />
-            )}
-
-            {activeTab === "expenses" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <ExpensesTab
                 expenses={budget.data.expenses}
                 onAdd={budget.addExpense}
@@ -146,9 +94,7 @@ function BudgetApp() {
                 onChangeName={budget.updateExpenseName}
                 onDelete={budget.deleteExpense}
               />
-            )}
 
-            {activeTab === "savings" && (
               <SavingsTab
                 savings={budget.data.savings}
                 onAdd={budget.addSaving}
@@ -157,7 +103,32 @@ function BudgetApp() {
                 onChangeName={budget.updateSavingName}
                 onDelete={budget.deleteSaving}
               />
-            )}
+            </div>
+            <IncomeTab
+              persons={budget.data.persons}
+              carryOver={budget.data.carryOver}
+              totalPlannedIncome={budget.totalPlannedIncome}
+              totalActualIncome={budget.totalActualIncome}
+              incomeDiff={budget.incomeDiff}
+              onAddPerson={budget.addPerson}
+              onUpdatePerson={budget.updatePerson}
+              onDeletePerson={budget.deletePerson}
+              onSetCarryOver={budget.setCarryOver}
+            />
+            <OverviewTab
+              data={budget.data}
+              totalPlannedIncome={budget.totalPlannedIncome}
+              totalActualIncome={budget.totalActualIncome}
+              incomeDiff={budget.incomeDiff}
+              totalFixed={budget.totalFixed}
+              totalFixedPlanned={budget.totalFixedPlanned}
+              totalExpenses={budget.totalExpenses}
+              totalExpensesPlanned={budget.totalExpensesPlanned}
+              totalSavings={budget.totalSavings}
+              totalSavingsPlanned={budget.totalSavingsPlanned}
+              balance={budget.balance}
+              plannedBalance={budget.plannedBalance}
+            />
           </>
         )}
       </main>
