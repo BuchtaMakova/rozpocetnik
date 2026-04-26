@@ -1,5 +1,4 @@
 import { SectionTable } from "../tables/SectionTable";
-import { useThemeColors } from "../../hooks/useThemeColors";
 import type { LineItem } from "../../types";
 
 interface ExpensesTabProps {
