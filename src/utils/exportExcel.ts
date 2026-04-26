@@ -59,18 +59,7 @@ export async function exportToExcel(data: MonthData) {
       data.expenses.reduce((s, i) => s + i.actual, 0),
     ],
     [],
-    ["Úspory"],
-    ...data.savings.map((i) => [
-      i.name,
-      i.planned,
-      i.actual,
-      i.actual - i.planned,
-    ]),
-    [
-      "CELKEM ÚSPORY",
-      data.savings.reduce((s, i) => s + i.planned, 0),
-      data.savings.reduce((s, i) => s + i.actual, 0),
-    ],
+
     [],
     ["Přesun z minula", data.carryOver],
   ];
@@ -126,22 +115,6 @@ export async function exportToExcel(data: MonthData) {
   const expensesSheet = XLSX.utils.aoa_to_sheet(expensesData);
   expensesSheet["!cols"] = [{ wch: 25 }, { wch: 15 }, { wch: 15 }, { wch: 15 }];
   XLSX.utils.book_append_sheet(workbook, expensesSheet, "Výdaje");
-
-  // ── Savings Sheet ───────────────────────────
-  const savingsData = [
-    ["Úspory " + monthName],
-    ["Položka", "Plánováno (Kč)", "Skutečné (Kč)", "Rozdíl"],
-    ...data.savings.map((i) => [
-      i.name,
-      i.planned,
-      i.actual,
-      i.actual - i.planned,
-    ]),
-  ];
-
-  const savingsSheet = XLSX.utils.aoa_to_sheet(savingsData);
-  savingsSheet["!cols"] = [{ wch: 25 }, { wch: 15 }, { wch: 15 }, { wch: 15 }];
-  XLSX.utils.book_append_sheet(workbook, savingsSheet, "Úspory");
 
   // ── Write file ──────────────────────────────
   const fileName = `rozpocet_${data.year}-${pad(data.month)}.xlsx`;

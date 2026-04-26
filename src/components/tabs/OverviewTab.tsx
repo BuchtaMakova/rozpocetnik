@@ -12,8 +12,6 @@ interface OverviewTabProps {
   totalFixedPlanned: number;
   totalExpenses: number;
   totalExpensesPlanned: number;
-  totalSavings: number;
-  totalSavingsPlanned: number;
   balance: number;
   plannedBalance: number;
 }
@@ -27,8 +25,6 @@ export function OverviewTab({
   totalFixedPlanned,
   totalExpenses,
   totalExpensesPlanned,
-  totalSavings,
-  totalSavingsPlanned,
   balance,
   plannedBalance,
 }: OverviewTabProps) {
@@ -71,15 +67,11 @@ export function OverviewTab({
       planned: totalPlannedIncome,
       actual: totalActualIncome,
     },
-    {
-      label: "Uspořený příjem",
-      planned: totalSavingsPlanned,
-      actual: totalSavings,
-    },
+
     {
       label: "Výdaje",
-      planned: -(totalFixedPlanned + totalExpensesPlanned),
-      actual: -(totalFixed + totalExpenses),
+      planned: -totalExpensesPlanned,
+      actual: -totalExpenses,
     },
     {
       label: "Fixní náklady",

@@ -14,8 +14,7 @@ export const calculateClosingBalance = (data: MonthData): number => {
   const totalIncome = data.persons.reduce((s, p) => s + p.actualIncome, 0);
   const totalOut =
     data.fixedCosts.reduce((s, x) => s + x.actual, 0) +
-    data.expenses.reduce((s, x) => s + x.actual, 0) +
-    data.savings.reduce((s, x) => s + x.actual, 0);
+    data.expenses.reduce((s, x) => s + x.actual, 0);
   return totalIncome + (data.carryOver || 0) - totalOut;
 };
 
@@ -26,7 +25,6 @@ const emptyMonth = (year: number, month: number, carryOver = 0): MonthData => ({
   persons: [{ name: "Já", plannedIncome: 0, actualIncome: 0 }],
   fixedCosts: [],
   expenses: [],
-  savings: [],
 });
 
 export async function fetchBudget(

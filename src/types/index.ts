@@ -18,12 +18,11 @@ export interface FixedCost extends LineItem {
 }
 
 export interface MonthData {
-  month: number;       // 0-based (0 = January)
+  month: number; // 0-based (0 = January)
   year: number;
   persons: Person[];
   fixedCosts: FixedCost[];
   expenses: LineItem[];
-  savings: LineItem[];
   carryOver: number;
 }
 

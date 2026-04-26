@@ -85,29 +85,26 @@ export function useBudget(year: number, month: number) {
     update((d) => ({ ...d, persons: d.persons.filter((_, i) => i !== index) }));
   const setCarryOver = (v: number) => update((d) => ({ ...d, carryOver: v }));
 
-  const makeAdder =
-    (key: "fixedCosts" | "expenses" | "savings", def: string) => () =>
-      update((d) => ({
-        ...d,
-        [key]: [...d[key], { id: uid(), name: def, planned: 0, actual: 0 }],
-      }));
+  const makeAdder = (key: "fixedCosts" | "expenses", def: string) => () =>
+    update((d) => ({
+      ...d,
+      [key]: [...d[key], { id: uid(), name: def, planned: 0, actual: 0 }],
+    }));
   const makeUpdater =
-    (key: "fixedCosts" | "expenses" | "savings", field: "planned" | "actual") =>
+    (key: "fixedCosts" | "expenses", field: "planned" | "actual") =>
     (id: string, val: number) =>
       update((d) => {
         const item = (d[key] as LineItem[]).find((x) => x.id === id);
         if (item) item[field] = val;
         return d;
       });
-  const makeDeleter =
-    (key: "fixedCosts" | "expenses" | "savings") => (id: string) =>
-      update((d) => ({
-        ...d,
-        [key]: (d[key] as LineItem[]).filter((x) => x.id !== id),
-      }));
+  const makeDeleter = (key: "fixedCosts" | "expenses") => (id: string) =>
+    update((d) => ({
+      ...d,
+      [key]: (d[key] as LineItem[]).filter((x) => x.id !== id),
+    }));
   const makeNameUpdater =
-    (key: "fixedCosts" | "expenses" | "savings") =>
-    (id: string, name: string) =>
+    (key: "fixedCosts" | "expenses") => (id: string, name: string) =>
       update((d) => {
         const item = (d[key] as LineItem[]).find((x) => x.id === id);
         if (item) item.name = name;
@@ -125,16 +122,12 @@ export function useBudget(year: number, month: number) {
   const totalExpenses = data?.expenses.reduce((s, x) => s + x.actual, 0) ?? 0;
   const totalExpensesPlanned =
     data?.expenses.reduce((s, x) => s + x.planned, 0) ?? 0;
-  const totalSavings = data?.savings.reduce((s, x) => s + x.actual, 0) ?? 0;
-  const totalSavingsPlanned =
-    data?.savings.reduce((s, x) => s + x.planned, 0) ?? 0;
 
   const balance = calculateClosingBalance(
     data || {
       persons: [],
       fixedCosts: [],
       expenses: [],
-      savings: [],
       carryOver: 0,
       month: 0,
       year: 0,
@@ -143,7 +136,7 @@ export function useBudget(year: number, month: number) {
   const plannedBalance =
     totalPlannedIncome +
     (data?.carryOver ?? 0) -
-    (totalFixedPlanned + totalExpensesPlanned + totalSavingsPlanned);
+    (totalFixedPlanned + totalExpensesPlanned);
 
   return {
     data,
@@ -164,11 +157,6 @@ export function useBudget(year: number, month: number) {
     updateExpenseActual: makeUpdater("expenses", "actual"),
     updateExpenseName: makeNameUpdater("expenses"),
     deleteExpense: makeDeleter("expenses"),
-    addSaving: makeAdder("savings", ""),
-    updateSavingPlanned: makeUpdater("savings", "planned"),
-    updateSavingActual: makeUpdater("savings", "actual"),
-    updateSavingName: makeNameUpdater("savings"),
-    deleteSaving: makeDeleter("savings"),
     totalPlannedIncome,
     totalActualIncome,
     incomeDiff: totalActualIncome - totalPlannedIncome,
@@ -176,8 +164,6 @@ export function useBudget(year: number, month: number) {
     totalFixedPlanned,
     totalExpenses,
     totalExpensesPlanned,
-    totalSavings,
-    totalSavingsPlanned,
     balance,
     plannedBalance,
   };

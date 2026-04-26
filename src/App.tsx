@@ -124,8 +124,6 @@ function BudgetApp() {
               totalFixedPlanned={budget.totalFixedPlanned}
               totalExpenses={budget.totalExpenses}
               totalExpensesPlanned={budget.totalExpensesPlanned}
-              totalSavings={budget.totalSavings}
-              totalSavingsPlanned={budget.totalSavingsPlanned}
               balance={budget.balance}
               plannedBalance={budget.plannedBalance}
             />
