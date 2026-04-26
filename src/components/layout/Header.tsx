@@ -1,5 +1,5 @@
 import { MONTHS_CZ } from "../../constants";
-import type { MonthData, TabId } from "../../types";
+import type { MonthData } from "../../types";
 import { exportToExcel } from "../../utils/exportExcel";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
@@ -10,14 +10,6 @@ interface HeaderProps {
   onPrevMonth: () => void;
   onNextMonth: () => void;
 }
-
-const TABS: { id: TabId; label: string }[] = [
-  { id: "overview", label: "Přehled" },
-  { id: "income", label: "Příjem" },
-  { id: "fixed", label: "Fixní náklady" },
-  { id: "expenses", label: "Výdaje" },
-  { id: "savings", label: "Úspory" },
-];
 
 export function Header({
   month,
