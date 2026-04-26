@@ -58,14 +58,6 @@ export function OverviewTab({
       icon: "🛍️",
       diffPositiveIsGood: false,
     },
-    {
-      label: "Úspory",
-      planned: totalSavingsPlanned,
-      actual: totalSavings,
-      diff: totalSavings - totalSavingsPlanned,
-      icon: "🏦",
-      diffPositiveIsGood: true,
-    },
   ];
 
   const summaryRows = [
@@ -75,7 +67,7 @@ export function OverviewTab({
       actual: data.carryOver,
     },
     {
-      label: "Plánovaný příjem",
+      label: "Příjem",
       planned: totalPlannedIncome,
       actual: totalActualIncome,
     },
@@ -85,11 +77,15 @@ export function OverviewTab({
       actual: totalSavings,
     },
     {
-      label: "Vynaložený příjem",
-      planned: totalFixedPlanned + totalExpensesPlanned,
-      actual: totalFixed + totalExpenses,
+      label: "Výdaje",
+      planned: -(totalFixedPlanned + totalExpensesPlanned),
+      actual: -(totalFixed + totalExpenses),
     },
-    { label: "Splacený dluh", planned: 0, actual: 0 },
+    {
+      label: "Fixní náklady",
+      planned: -totalFixedPlanned,
+      actual: -totalFixed,
+    },
   ];
 
   return (
@@ -200,16 +196,11 @@ export function OverviewTab({
                 planned: totalExpensesPlanned,
                 actual: totalExpenses,
               },
-              {
-                label: "Úspory",
-                planned: totalSavingsPlanned,
-                actual: totalSavings,
-              },
             ]}
           />
         </div>
         <DonutWithLegend title="Výdaje" items={data.expenses} />
-        <DonutWithLegend title="Úspory" items={data.savings} />
+        <DonutWithLegend title="Fixní náklady" items={data.fixedCosts} />
       </div>
 
       {/* Budget summary table */}

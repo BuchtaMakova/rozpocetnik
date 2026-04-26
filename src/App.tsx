@@ -4,7 +4,7 @@ import { Header } from "./components/layout/Header";
 import { OverviewTab } from "./components/tabs/OverviewTab";
 import { IncomeTab } from "./components/tabs/IncomeTab";
 import { ExpensesTab } from "./components/tabs/ExpensesTab";
-import { SavingsTab } from "./components/tabs/SavingsTab";
+import { FixedCostsTab } from "./components/tabs/FixedCostsTab";
 import { useBudget } from "./hooks/useBudget";
 import "./styles/themes.css";
 import "./App.css";
@@ -95,13 +95,13 @@ function BudgetApp() {
                 onDelete={budget.deleteExpense}
               />
 
-              <SavingsTab
-                savings={budget.data.savings}
-                onAdd={budget.addSaving}
-                onChangePlanned={budget.updateSavingPlanned}
-                onChangeActual={budget.updateSavingActual}
-                onChangeName={budget.updateSavingName}
-                onDelete={budget.deleteSaving}
+              <FixedCostsTab
+                fixedCosts={budget.data.fixedCosts}
+                onAdd={budget.addFixedCost}
+                onChangePlanned={budget.updateFixedPlanned}
+                onChangeActual={budget.updateFixedActual}
+                onChangeName={budget.updateFixedName}
+                onDelete={budget.deleteFixedCost}
               />
             </div>
             <IncomeTab

@@ -74,10 +74,7 @@ export function useBudget(year: number, month: number) {
   const addPerson = () =>
     update((d) => ({
       ...d,
-      persons: [
-        ...d.persons,
-        { name: "Nová osoba", plannedIncome: 0, actualIncome: 0 },
-      ],
+      persons: [...d.persons, { name: "", plannedIncome: 0, actualIncome: 0 }],
     }));
   const updatePerson = (index: number, patch: Partial<Person>) =>
     update((d) => {
@@ -157,17 +154,17 @@ export function useBudget(year: number, month: number) {
     updatePerson,
     deletePerson,
     setCarryOver,
-    addFixedCost: makeAdder("fixedCosts", "Nová položka"),
+    addFixedCost: makeAdder("fixedCosts", ""),
     updateFixedPlanned: makeUpdater("fixedCosts", "planned"),
     updateFixedActual: makeUpdater("fixedCosts", "actual"),
     updateFixedName: makeNameUpdater("fixedCosts"),
     deleteFixedCost: makeDeleter("fixedCosts"),
-    addExpense: makeAdder("expenses", "Nová položka"),
+    addExpense: makeAdder("expenses", ""),
     updateExpensePlanned: makeUpdater("expenses", "planned"),
     updateExpenseActual: makeUpdater("expenses", "actual"),
     updateExpenseName: makeNameUpdater("expenses"),
     deleteExpense: makeDeleter("expenses"),
-    addSaving: makeAdder("savings", "Nový cíl"),
+    addSaving: makeAdder("savings", ""),
     updateSavingPlanned: makeUpdater("savings", "planned"),
     updateSavingActual: makeUpdater("savings", "actual"),
     updateSavingName: makeNameUpdater("savings"),

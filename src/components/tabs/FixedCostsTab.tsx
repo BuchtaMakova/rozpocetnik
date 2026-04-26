@@ -2,8 +2,8 @@ import { SectionTable } from "../tables/SectionTable";
 
 import type { LineItem } from "../../types";
 
-interface SavingsTabProps {
-  savings: LineItem[];
+interface FixedCostsProps {
+  fixedCosts: LineItem[];
   onAdd: () => void;
   onChangePlanned: (id: string, value: number) => void;
   onChangeActual: (id: string, value: number) => void;
@@ -11,19 +11,19 @@ interface SavingsTabProps {
   onDelete: (id: string) => void;
 }
 
-export function SavingsTab({
-  savings,
+export function FixedCostsTab({
+  fixedCosts,
   onAdd,
   onChangePlanned,
   onChangeActual,
   onChangeName,
   onDelete,
-}: SavingsTabProps) {
+}: FixedCostsProps) {
   return (
     <div>
       <SectionTable
-        title="Úspory"
-        items={savings}
+        title="Fixní náklady"
+        items={fixedCosts}
         onAdd={onAdd}
         onChangePlanned={onChangePlanned}
         onChangeActual={onChangeActual}

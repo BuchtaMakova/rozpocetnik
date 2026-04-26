@@ -114,7 +114,7 @@ export function IncomeTab({
                           onChange={(e) =>
                             onUpdatePerson(i, { name: e.target.value })
                           }
-                          className="flex-1 min-w-0 rounded-lg px-2 py-1 text-sm font-semibold focus:outline-none"
+                          className="w-28 min-w-0 rounded-lg px-2 py-1 text-sm font-semibold focus:outline-none"
                           style={inputStyle}
                         />
                       </div>
@@ -130,7 +130,7 @@ export function IncomeTab({
                             plannedIncome: Number(e.target.value),
                           })
                         }
-                        className="w-32 rounded-lg px-2 py-1 text-sm font-bold focus:outline-none"
+                        className="w-25 rounded-lg px-2 py-1 text-sm font-bold focus:outline-none"
                         style={inputStyle}
                       />
                     </td>
@@ -145,7 +145,7 @@ export function IncomeTab({
                             actualIncome: Number(e.target.value),
                           })
                         }
-                        className="w-32 rounded-lg px-2 py-1 text-sm font-bold focus:outline-none"
+                        className="w-25 rounded-lg px-2 py-1 text-sm font-bold focus:outline-none"
                         style={inputStyle}
                       />
                     </td>
