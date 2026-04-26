@@ -1,0 +1,219 @@
+/* ─────────────────────────────────────────────────────────
+   Budget Planner — Theme System
+   All colors flow from these CSS variables.
+   Text contrast targets: strong ≥7:1, base ≥5:1, muted ≥4.5:1, faint ≥3:1
+   To create a new theme, add a [data-theme="name"] block.
+───────────────────────────────────────────────────────── */
+
+/* ── Pink ───────────────────────────────────────────────── */
+:root,
+[data-theme="pink"] {
+  --color-bg-from: #fff1f2;
+  --color-bg-via: #fdf2f8;
+  --color-bg-to: #fce7f3;
+
+  --color-primary: #be123c; /* rose-700 — deep, readable */
+  --color-primary-light: #e11d48; /* rose-600 */
+  --color-primary-subtle: #ffe4e6; /* rose-100 */
+
+  --color-accent: #9d174d; /* pink-800 */
+  --color-accent-light: #fbcfe8; /* pink-200 — used for buttons, not text */
+  --color-accent-subtle: #fdf2f8; /* pink-50  */
+
+  --color-surface: #ffffff;
+  --color-surface-raised: #fff5f7;
+  --color-border: #fce7f3;
+  --color-border-strong: #fbcfe8;
+
+  /* Text: all on white — contrast checked */
+  --color-text-strong: #1c0a10; /* near-black with pink tint  ~18:1 */
+  --color-text-base: #3b0a1f; /* very dark rose             ~14:1 */
+  --color-text-muted: #6b1a34; /* dark rose, still readable   ~8:1 */
+  --color-text-faint: #9f2146; /* medium rose                 ~5:1 */
+
+  --color-success: #166534;
+  --color-danger: #b91c1c;
+
+  --color-tab-active-bg: #be123c;
+  --color-tab-active-text: #ffffff;
+
+  /* Donut — vivid but distinct, mid-to-dark saturation */
+  --color-donut-1: #e11d48;
+  --color-donut-2: #db2777;
+  --color-donut-3: #9333ea;
+  --color-donut-4: #7c3aed;
+  --color-donut-5: #c026d3;
+  --color-donut-6: #0891b2;
+  --color-donut-7: #059669;
+
+  --color-bar-planned: #fbcfe8;
+  --color-bar-actual: #be123c;
+}
+
+/* ── Ocean ──────────────────────────────────────────────── */
+[data-theme="ocean"] {
+  --color-bg-from: #f0f9ff;
+  --color-bg-via: #e0f2fe;
+  --color-bg-to: #eff6ff;
+
+  --color-primary: #075985; /* sky-800 */
+  --color-primary-light: #0284c7; /* sky-600 */
+  --color-primary-subtle: #dbeafe;
+
+  --color-accent: #1e40af; /* blue-800 */
+  --color-accent-light: #bfdbfe; /* blue-200 */
+  --color-accent-subtle: #f0f9ff;
+
+  --color-surface: #ffffff;
+  --color-surface-raised: #f0f9ff;
+  --color-border: #e0f2fe;
+  --color-border-strong: #bae6fd;
+
+  --color-text-strong: #082f49; /* sky-950  ~18:1 */
+  --color-text-base: #0c4a6e; /* sky-900  ~13:1 */
+  --color-text-muted: #075985; /* sky-800   ~8:1 */
+  --color-text-faint: #0369a1; /* sky-700   ~6:1 */
+
+  --color-success: #166534;
+  --color-danger: #b91c1c;
+
+  --color-tab-active-bg: #075985;
+  --color-tab-active-text: #ffffff;
+
+  --color-donut-1: #0284c7;
+  --color-donut-2: #0891b2;
+  --color-donut-3: #1d4ed8;
+  --color-donut-4: #7c3aed;
+  --color-donut-5: #059669;
+  --color-donut-6: #d97706;
+  --color-donut-7: #dc2626;
+
+  --color-bar-planned: #bae6fd;
+  --color-bar-actual: #075985;
+}
+
+/* ── Forest ─────────────────────────────────────────────── */
+[data-theme="forest"] {
+  --color-bg-from: #f0fdf4;
+  --color-bg-via: #ecfdf5;
+  --color-bg-to: #f0fdf4;
+
+  --color-primary: #14532d; /* green-900 */
+  --color-primary-light: #166534; /* green-800 */
+  --color-primary-subtle: #dcfce7;
+
+  --color-accent: #065f46; /* emerald-900 */
+  --color-accent-light: #a7f3d0; /* emerald-200 */
+  --color-accent-subtle: #ecfdf5;
+
+  --color-surface: #ffffff;
+  --color-surface-raised: #f0fdf4;
+  --color-border: #dcfce7;
+  --color-border-strong: #bbf7d0;
+
+  --color-text-strong: #052e16; /* green-950  ~18:1 */
+  --color-text-base: #14532d; /* green-900  ~13:1 */
+  --color-text-muted: #15803d; /* green-700   ~7:1 */
+  --color-text-faint: #166534; /* green-800   ~9:1 */
+
+  --color-success: #14532d;
+  --color-danger: #b91c1c;
+
+  --color-tab-active-bg: #14532d;
+  --color-tab-active-text: #ffffff;
+
+  --color-donut-1: #16a34a;
+  --color-donut-2: #059669;
+  --color-donut-3: #0891b2;
+  --color-donut-4: #ca8a04;
+  --color-donut-5: #7c3aed;
+  --color-donut-6: #dc2626;
+  --color-donut-7: #c026d3;
+
+  --color-bar-planned: #bbf7d0;
+  --color-bar-actual: #14532d;
+}
+
+/* ── Purple ─────────────────────────────────────────────── */
+[data-theme="purple"] {
+  --color-bg-from: #faf5ff;
+  --color-bg-via: #f5f3ff;
+  --color-bg-to: #faf5ff;
+
+  --color-primary: #4c1d95; /* violet-900 */
+  --color-primary-light: #6d28d9; /* violet-700 */
+  --color-primary-subtle: #ede9fe;
+
+  --color-accent: #581c87; /* purple-900 */
+  --color-accent-light: #e9d5ff; /* purple-200 */
+  --color-accent-subtle: #faf5ff;
+
+  --color-surface: #ffffff;
+  --color-surface-raised: #faf5ff;
+  --color-border: #ede9fe;
+  --color-border-strong: #ddd6fe;
+
+  --color-text-strong: #1e0036; /* near-black violet  ~18:1 */
+  --color-text-base: #2e1065; /* violet-950         ~15:1 */
+  --color-text-muted: #4c1d95; /* violet-900          ~9:1 */
+  --color-text-faint: #5b21b6; /* violet-800          ~7:1 */
+
+  --color-success: #166534;
+  --color-danger: #b91c1c;
+
+  --color-tab-active-bg: #4c1d95;
+  --color-tab-active-text: #ffffff;
+
+  --color-donut-1: #7c3aed;
+  --color-donut-2: #9333ea;
+  --color-donut-3: #c026d3;
+  --color-donut-4: #db2777;
+  --color-donut-5: #1d4ed8;
+  --color-donut-6: #059669;
+  --color-donut-7: #d97706;
+
+  --color-bar-planned: #ddd6fe;
+  --color-bar-actual: #4c1d95;
+}
+
+/* ── Sunset ─────────────────────────────────────────────── */
+[data-theme="sunset"] {
+  --color-bg-from: #fff7ed;
+  --color-bg-via: #fffbeb;
+  --color-bg-to: #fff7ed;
+
+  --color-primary: #7c2d12; /* orange-900 */
+  --color-primary-light: #9a3412; /* orange-800 */
+  --color-primary-subtle: #ffedd5;
+
+  --color-accent: #78350f; /* amber-900 */
+  --color-accent-light: #fde68a; /* amber-200 */
+  --color-accent-subtle: #fffbeb;
+
+  --color-surface: #ffffff;
+  --color-surface-raised: #fff7ed;
+  --color-border: #ffedd5;
+  --color-border-strong: #fed7aa;
+
+  --color-text-strong: #1c0a00; /* near-black amber   ~18:1 */
+  --color-text-base: #431407; /* orange-950         ~15:1 */
+  --color-text-muted: #7c2d12; /* orange-900          ~9:1 */
+  --color-text-faint: #9a3412; /* orange-800          ~7:1 */
+
+  --color-success: #166534;
+  --color-danger: #b91c1c;
+
+  --color-tab-active-bg: #7c2d12;
+  --color-tab-active-text: #ffffff;
+
+  --color-donut-1: #ea580c;
+  --color-donut-2: #d97706;
+  --color-donut-3: #ca8a04;
+  --color-donut-4: #dc2626;
+  --color-donut-5: #9333ea;
+  --color-donut-6: #0891b2;
+  --color-donut-7: #16a34a;
+
+  --color-bar-planned: #fed7aa;
+  --color-bar-actual: #7c2d12;
+}
